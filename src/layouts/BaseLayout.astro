@@ -1,0 +1,242 @@
+---
+import '../styles/global.css';
+import type { Translations, Lang } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+  lang: Lang;
+  canonical?: string;
+}
+
+const { t, lang, canonical } = Astro.props;
+
+const siteUrl = 'https://ry-architecture.ma';
+const canonicalUrl = canonical ?? (lang === 'fr' ? siteUrl + '/' : `${siteUrl}/${lang}/`);
+
+const hreflangs = [
+  { lang: 'fr', href: siteUrl + '/' },
+  { lang: 'en', href: siteUrl + '/en/' },
+  { lang: 'ar', href: siteUrl + '/ar/' },
+  { lang: 'x-default', href: siteUrl + '/' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "ProfessionalService", "HomeAndConstructionBusiness"],
+      "@id": `${siteUrl}/#organization`,
+      "name": "RY Architecture",
+      "alternateName": ["RY Agence d'Architecture", "RY Architecture Marrakech"],
+      "description": "Cabinet d'architecture de prestige fondé par Yassir Rafi à Marrakech. Expertise en architecture résidentielle, commerciale, hôtelière, patrimoniale et urbanisme au Maroc.",
+      "url": siteUrl,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/images/og-image.jpg`,
+        "width": 1200,
+        "height": 630
+      },
+      "image": `${siteUrl}/images/og-image.jpg`,
+      "telephone": "+212-5XX-XXXXXX",
+      "email": "contact@ry-architecture.ma",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bd Yacoub El Mansour, Cité Bokar, Résid. Drarga, Bur. 53",
+        "addressLocality": "Marrakech",
+        "addressRegion": "Marrakech-Safi",
+        "postalCode": "40000",
+        "addressCountry": "MA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "31.6295",
+        "longitude": "-7.9811"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Marrakech" },
+        { "@type": "Country", "name": "Maroc" }
+      ],
+      "serviceType": [
+        "Architecture résidentielle",
+        "Architecture commerciale",
+        "Architecture hôtelière",
+        "Urbanisme",
+        "Restauration patrimoniale",
+        "Design d'intérieur"
+      ],
+      "knowsAbout": [
+        "Architecture marocaine",
+        "Riad architecture",
+        "Architecture de luxe Marrakech",
+        "Tadelakt",
+        "Zellige",
+        "Médina Marrakech",
+        "Architecture contemporaine Maroc"
+      ],
+      "sameAs": []
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#founder`,
+      "name": "Yassir Rafi",
+      "givenName": "Yassir",
+      "familyName": "Rafi",
+      "jobTitle": "Architecte",
+      "description": "Architecte DPLG basé à Marrakech, Maroc. 15 ans d'expérience en architecture de prestige, riad contemporain et patrimoine architectural marocain.",
+      "worksFor": { "@id": `${siteUrl}/#organization` },
+      "knowsAbout": [
+        "Architecture marocaine contemporaine",
+        "Architecte Marrakech",
+        "Architecture riad",
+        "Maroc architecture de luxe"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Marrakech",
+        "addressCountry": "MA"
+      },
+      "image": `${siteUrl}/images/yassir-rafi.jpg`
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": "RY Architecture",
+      "description": "Cabinet d'architecture de prestige à Marrakech",
+      "publisher": { "@id": `${siteUrl}/#organization` },
+      "inLanguage": ["fr-MA", "en-US", "ar-MA"]
+    }
+  ]
+};
+---
+<!DOCTYPE html>
+<html lang={t.lang} dir={t.dir}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Primary Meta -->
+  <title>{t.metaTitle}</title>
+  <meta name="description" content={t.metaDescription} />
+  <meta name="keywords" content={t.metaKeywords} />
+  <meta name="author" content="Yassir Rafi — RY Architecture" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Hreflang -->
+  {hreflangs.map(h => (
+    <link rel="alternate" hreflang={h.lang} href={h.href} />
+  ))}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={t.metaTitle} />
+  <meta property="og:description" content={t.metaDescription} />
+  <meta property="og:image" content={`${siteUrl}/images/og-image.jpg`} />
+  <meta property="og:locale" content={t.locale} />
+  <meta property="og:site_name" content="RY Architecture" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={t.metaTitle} />
+  <meta name="twitter:description" content={t.metaDescription} />
+  <meta name="twitter:image" content={`${siteUrl}/images/og-image.jpg`} />
+
+  <!-- Theme & Icons -->
+  <meta name="theme-color" content="#1C1A18" />
+  <meta name="color-scheme" content="light" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Preconnect fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Performance hints -->
+  <link rel="preload" href="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1920&q=80" as="image" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body>
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <!-- Custom cursor (desktop only) -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <slot />
+
+  <script>
+    // ─── Custom Cursor ───
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (cursor) {
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+      }
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      if (cursorRing) {
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+      }
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a, button, [data-hover]').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor?.style.setProperty('width', '16px');
+        cursor?.style.setProperty('height', '16px');
+        cursorRing?.style.setProperty('width', '56px');
+        cursorRing?.style.setProperty('height', '56px');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor?.style.setProperty('width', '8px');
+        cursor?.style.setProperty('height', '8px');
+        cursorRing?.style.setProperty('width', '36px');
+        cursorRing?.style.setProperty('height', '36px');
+      });
+    });
+
+    // ─── Progress Bar ───
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total = document.body.scrollHeight - window.innerHeight;
+      const progress = scrolled / total;
+      if (progressBar) {
+        progressBar.style.transform = `scaleX(${progress})`;
+        progressBar.style.width = '100%';
+      }
+    });
+
+    // ─── Scroll Reveal ───
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

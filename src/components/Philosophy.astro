@@ -1,0 +1,313 @@
+---
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+const { t } = Astro.props;
+---
+
+<section class="philosophy section" id="philosophy" aria-labelledby="philosophy-heading">
+  <!-- Background image strip -->
+  <div class="philosophy__strip" aria-hidden="true">
+    <img
+      src="https://images.unsplash.com/photo-1539906386718-c196dd6d3234?auto=format&fit=crop&w=1600&q=75"
+      alt=""
+      loading="lazy"
+      width="1600"
+      height="400"
+    />
+    <div class="philosophy__strip-overlay"></div>
+  </div>
+
+  <div class="container">
+    <div class="philosophy__layout">
+      <!-- Left: Header -->
+      <div class="philosophy__header">
+        <span class="eyebrow reveal">{t.philosophyEyebrow}</span>
+        <h2 class="heading heading-xl philosophy__title reveal reveal-delay-1" id="philosophy-heading">
+          {t.philosophyTitle.split('\n').map((line) => (
+            <span class="block">{line}</span>
+          ))}
+        </h2>
+        <p class="body-lg philosophy__subtitle reveal reveal-delay-2">
+          {t.philosophySubtitle}
+        </p>
+
+        <!-- Decorative Zellige pattern -->
+        <div class="zellige-deco reveal reveal-delay-3" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Geometric Moroccan pattern -->
+            <g stroke="currentColor" stroke-width="0.5" opacity="0.5">
+              <!-- Outer octagon -->
+              <polygon points="60,4 96,20 116,56 116,64 96,100 60,116 24,100 4,64 4,56 24,20"/>
+              <!-- Inner diamond -->
+              <polygon points="60,20 90,50 90,70 60,100 30,70 30,50"/>
+              <!-- Center cross -->
+              <line x1="60" y1="4" x2="60" y2="116"/>
+              <line x1="4" y1="60" x2="116" y2="60"/>
+              <!-- Diagonal lines -->
+              <line x1="24" y1="20" x2="96" y2="100"/>
+              <line x1="96" y1="20" x2="24" y2="100"/>
+              <!-- Small center square -->
+              <rect x="48" y="48" width="24" height="24" transform="rotate(45 60 60)"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: FAQ Accordion -->
+      <div class="philosophy__faq" role="list">
+        {t.faqs.map((faq, i) => (
+          <div
+            class="faq-item reveal"
+            style={`--delay: ${i * 80}ms`}
+            role="listitem"
+          >
+            <button
+              class="faq-item__q"
+              aria-expanded="false"
+              aria-controls={`faq-answer-${i}`}
+              id={`faq-q-${i}`}
+            >
+              <span class="faq-item__num" aria-hidden="true">0{i + 1}</span>
+              <span class="faq-item__q-text">{faq.q}</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1"/>
+                  <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1" class="faq-h-line"/>
+                </svg>
+              </span>
+            </button>
+            <div
+              class="faq-item__a"
+              id={`faq-answer-${i}`}
+              role="region"
+              aria-labelledby={`faq-q-${i}`}
+              hidden
+            >
+              <p>{faq.a}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ─── Philosophy Section ─── */
+  .philosophy {
+    background: var(--color-offwhite);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ─── Background strip ─── */
+  .philosophy__strip {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    overflow: hidden;
+    opacity: 0.12;
+  }
+
+  [dir="rtl"] .philosophy__strip {
+    right: auto;
+    left: 0;
+  }
+
+  .philosophy__strip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .philosophy__strip-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--color-offwhite) 0%, transparent 40%);
+  }
+
+  [dir="rtl"] .philosophy__strip-overlay {
+    background: linear-gradient(-90deg, var(--color-offwhite) 0%, transparent 40%);
+  }
+
+  /* ─── Layout ─── */
+  .philosophy__layout {
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Header ─── */
+  .philosophy__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: sticky;
+    top: 8rem;
+  }
+
+  .philosophy__title {
+    font-style: italic;
+  }
+
+  .block { display: block; }
+
+  /* ─── Zellige decoration ─── */
+  .zellige-deco {
+    width: 7rem;
+    height: 7rem;
+    color: var(--color-sand);
+    margin-top: 1rem;
+  }
+
+  /* ─── FAQ ─── */
+  .philosophy__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-sand-light);
+  }
+
+  /* ─── FAQ Item ─── */
+  .faq-item {
+    border-bottom: 1px solid var(--color-sand-light);
+    transition-delay: var(--delay);
+  }
+
+  .faq-item__q {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2rem 1fr 1.5rem;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.75rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-charcoal);
+    transition: color 200ms;
+  }
+
+  [dir="rtl"] .faq-item__q {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .faq-item__q:hover {
+    color: var(--color-stone);
+  }
+
+  .faq-item__num {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--color-sand);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .faq-item__q-text {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  [dir="rtl"] .faq-item__q-text {
+    text-align: right;
+  }
+
+  .faq-item__icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-stone);
+    flex-shrink: 0;
+    transition: transform 300ms var(--ease-out);
+  }
+
+  .faq-item__icon svg { width: 100%; height: 100%; }
+
+  .faq-h-line {
+    transform-origin: center;
+    transition: transform 300ms var(--ease-out), opacity 300ms;
+  }
+
+  .faq-item__q[aria-expanded="true"] .faq-h-line {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  /* ─── FAQ Answer ─── */
+  .faq-item__a {
+    padding: 0 0 1.75rem calc(2rem + 1.25rem);
+  }
+
+  [dir="rtl"] .faq-item__a {
+    padding: 0 calc(2rem + 1.25rem) 1.75rem 0;
+  }
+
+  .faq-item__a[hidden] {
+    display: none;
+  }
+
+  .faq-item__a p {
+    font-size: 0.9375rem;
+    color: var(--color-stone);
+    line-height: 1.8;
+  }
+
+  /* Animate open/close */
+  .faq-item__a-inner {
+    overflow: hidden;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 900px) {
+    .philosophy__layout { grid-template-columns: 1fr; }
+    .philosophy__header { position: static; }
+    .philosophy__strip { display: none; }
+  }
+</style>
+
+<script>
+  // ─── FAQ Accordion ───
+  const faqButtons = document.querySelectorAll('.faq-item__q');
+
+  faqButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const answerId = btn.getAttribute('aria-controls');
+      const answer = answerId ? document.getElementById(answerId) : null;
+
+      // Close all others
+      faqButtons.forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          const otherId = other.getAttribute('aria-controls');
+          const otherAnswer = otherId ? document.getElementById(otherId) : null;
+          if (otherAnswer) {
+            otherAnswer.hidden = true;
+          }
+        }
+      });
+
+      // Toggle current
+      btn.setAttribute('aria-expanded', String(!expanded));
+      if (answer) {
+        answer.hidden = expanded;
+      }
+    });
+  });
+
+  // Open first FAQ by default
+  const firstBtn = faqButtons[0] as HTMLButtonElement | undefined;
+  firstBtn?.click();
+</script>

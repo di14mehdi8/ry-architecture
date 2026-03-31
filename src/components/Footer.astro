@@ -1,0 +1,199 @@
+---
+import type { Translations, Lang } from '../i18n/translations';
+import { getLocalePath } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+  lang: Lang;
+}
+const { t, lang } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const lp = (l: typeof lang) => getLocalePath(l, '', base);
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <!-- Top row -->
+    <div class="footer__top">
+      <!-- Brand -->
+      <div class="footer__brand">
+        <a href={lp(lang)} class="footer__logo" aria-label="RY Architecture">
+          <svg viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <text x="0" y="42" font-family="'Cormorant Garamond', Georgia, serif" font-size="52" font-weight="300" fill="currentColor">R</text>
+            <text x="30" y="42" font-family="'Cormorant Garamond', Georgia, serif" font-size="52" font-weight="300" fill="currentColor">Y</text>
+          </svg>
+        </a>
+        <p class="footer__tagline">{t.footerTagline}</p>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <span class="footer__nav-title eyebrow">{t.footerLinks}</span>
+        <ul>
+          <li><a href={`${lp(lang)}#services`}>{t.navServices}</a></li>
+          <li><a href={`${lp(lang)}#portfolio`}>{t.navPortfolio}</a></li>
+          <li><a href={`${lp(lang)}#about`}>{t.navAbout}</a></li>
+          <li><a href={`${lp(lang)}#philosophy`}>Philosophie</a></li>
+        </ul>
+      </nav>
+
+      <!-- Contact -->
+      <address class="footer__contact" aria-label="Coordonnées">
+        <span class="footer__nav-title eyebrow">{t.footerContact}</span>
+        <ul>
+          <li><a href={`mailto:${t.contactEmail}`}>{t.contactEmail}</a></li>
+          <li><a href={`tel:${t.contactPhone.replace(/\s/g, '')}`}>{t.contactPhone}</a></li>
+          {t.contactAddress.split('\n').map(line => (
+            <li class="footer__addr-line">{line}</li>
+          ))}
+        </ul>
+      </address>
+
+      <!-- Languages -->
+      <div class="footer__langs">
+        <span class="footer__nav-title eyebrow">{t.navLang}</span>
+        <ul>
+          <li><a href={lp('fr')} hreflang="fr" lang="fr" class:list={[{ active: lang === 'fr' }]}>Français</a></li>
+          <li><a href={lp('en')} hreflang="en" lang="en" class:list={[{ active: lang === 'en' }]}>English</a></li>
+          <li><a href={lp('ar')} hreflang="ar" lang="ar" class:list={[{ active: lang === 'ar' }]}>العربية</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="footer__bottom">
+      <p class="footer__copy">{t.footerCopy}</p>
+      <div class="footer__bottom-links">
+        <a href={`${lp(lang)}#`}>{t.footerLegal}</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.ordre-architectes.ma" target="_blank" rel="noopener noreferrer" aria-label="Ordre National des Architectes du Maroc (ouvre dans un nouvel onglet)">
+          ONA Maroc
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* ─── Footer ─── */
+  .footer {
+    background: var(--color-charcoal);
+    color: rgba(247, 244, 239, 0.55);
+    padding-block: clamp(4rem, 8vw, 7rem) 2.5rem;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  /* ─── Top ─── */
+  .footer__top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    margin-bottom: clamp(3rem, 5vw, 5rem);
+    padding-bottom: clamp(3rem, 5vw, 4rem);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  /* ─── Brand ─── */
+  .footer__logo {
+    display: block;
+    color: var(--color-offwhite);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer__logo svg {
+    height: 36px;
+    width: auto;
+    overflow: visible;
+  }
+
+  .footer__tagline {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  /* ─── Nav columns ─── */
+  .footer__nav,
+  .footer__contact,
+  .footer__langs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .footer__nav-title {
+    color: var(--color-sand);
+  }
+
+  .footer__nav ul,
+  .footer__contact ul,
+  .footer__langs ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer__nav a,
+  .footer__contact a,
+  .footer__langs a {
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.5);
+    text-decoration: none;
+    transition: color 200ms;
+    font-style: normal;
+  }
+
+  .footer__nav a:hover,
+  .footer__contact a:hover,
+  .footer__langs a:hover,
+  .footer__langs a.active {
+    color: var(--color-offwhite);
+  }
+
+  .footer__addr-line {
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.35);
+  }
+
+  /* ─── Bottom ─── */
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .footer__copy {
+    font-size: 0.75rem;
+    color: rgba(247, 244, 239, 0.3);
+  }
+
+  .footer__bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    color: rgba(247, 244, 239, 0.3);
+  }
+
+  .footer__bottom-links a {
+    color: rgba(247, 244, 239, 0.35);
+    text-decoration: none;
+    transition: color 200ms;
+  }
+
+  .footer__bottom-links a:hover {
+    color: var(--color-offwhite);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .footer__top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .footer__top { grid-template-columns: 1fr; }
+    .footer__bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>

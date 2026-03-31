@@ -1,0 +1,309 @@
+---
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+const { t } = Astro.props;
+
+const titleLines = t.heroTitle.split('\n');
+---
+
+<section class="hero" id="hero" aria-label="Section hero">
+  <!-- Background image with parallax -->
+  <div class="hero__bg" id="hero-bg">
+    <img
+      src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1920&q=80"
+      alt="Architecture contemporaine de luxe — RY Architecture Marrakech"
+      class="hero__img"
+      loading="eager"
+      fetchpriority="high"
+      width="1920"
+      height="1080"
+    />
+    <div class="hero__overlay"></div>
+  </div>
+
+  <!-- Vertical text decoration -->
+  <div class="hero__vert-text" aria-hidden="true">
+    <span>Marrakech · Maroc</span>
+  </div>
+
+  <!-- Content -->
+  <div class="container hero__content">
+    <div class="hero__eyebrow reveal">
+      <span class="eyebrow">{t.heroEyebrow}</span>
+      <span class="hero__line"></span>
+    </div>
+
+    <h1 class="hero__title heading heading-display reveal reveal-delay-1">
+      {titleLines.map((line, i) => (
+        <span class="hero__title-line" style={`--i: ${i}`}>{line}</span>
+      ))}
+    </h1>
+
+    <p class="hero__subtitle reveal reveal-delay-2">{t.heroSubtitle}</p>
+
+    <a href="#portfolio" class="btn reveal reveal-delay-3" aria-label={t.heroCta}>
+      <span class="btn-text">{t.heroCta}</span>
+      <span class="btn-arrow" aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="hero__stats container">
+    <div class="hero__stat reveal reveal-delay-2">
+      <span class="hero__stat-num">{t.statsProjectsNum}</span>
+      <span class="hero__stat-label">{t.statsProjects}</span>
+    </div>
+    <div class="hero__divider" aria-hidden="true"></div>
+    <div class="hero__stat reveal reveal-delay-3">
+      <span class="hero__stat-num">{t.statsYearsNum}</span>
+      <span class="hero__stat-label">{t.statsYears}</span>
+    </div>
+    <div class="hero__divider" aria-hidden="true"></div>
+    <div class="hero__stat reveal reveal-delay-4">
+      <span class="hero__stat-num">{t.statsClientsNum}</span>
+      <span class="hero__stat-label">{t.statsClients}</span>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-label">{t.heroScroll}</span>
+    <span class="hero__scroll-line"></span>
+  </div>
+</section>
+
+<style>
+  /* ─── Hero Container ─── */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--color-charcoal);
+  }
+
+  /* ─── Background ─── */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  .hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(28, 26, 24, 0.72) 0%,
+      rgba(28, 26, 24, 0.45) 50%,
+      rgba(28, 26, 24, 0.3) 100%
+    );
+  }
+
+  /* ─── Vertical text ─── */
+  .hero__vert-text {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: center center;
+    color: rgba(247, 244, 239, 0.4);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  [dir="rtl"] .hero__vert-text {
+    right: auto;
+    left: 2rem;
+    transform: translateY(-50%) rotate(-90deg);
+  }
+
+  /* ─── Content ─── */
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    padding-block: 8rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+    max-width: 900px;
+  }
+
+  [dir="rtl"] .hero__content {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  /* ─── Eyebrow ─── */
+  .hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-sand);
+  }
+
+  .hero__line {
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: var(--color-sand);
+    opacity: 0.6;
+  }
+
+  /* ─── Title ─── */
+  .hero__title {
+    color: var(--color-offwhite);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    font-style: italic;
+  }
+
+  .hero__title-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: titleReveal 0.9s var(--ease-out) forwards;
+    animation-delay: calc(0.3s + var(--i) * 0.15s);
+  }
+
+  @keyframes titleReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Subtitle ─── */
+  .hero__subtitle {
+    color: rgba(247, 244, 239, 0.75);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 460px;
+    font-weight: 300;
+  }
+
+  /* ─── CTA Button ─── */
+  .btn {
+    color: var(--color-offwhite);
+    margin-top: 0.5rem;
+  }
+
+  .btn-text {
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ─── Stats ─── */
+  .hero__stats {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(247, 244, 239, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(247, 244, 239, 0.12);
+  }
+
+  .hero__stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 2rem clamp(1rem, 4vw, 3rem);
+  }
+
+  .hero__stat-num {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--color-offwhite);
+    line-height: 1;
+  }
+
+  .hero__stat-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.5);
+  }
+
+  .hero__divider {
+    width: 1px;
+    background: rgba(247, 244, 239, 0.12);
+    align-self: stretch;
+  }
+
+  /* ─── Scroll indicator ─── */
+  .hero__scroll {
+    position: absolute;
+    bottom: 7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(247, 244, 239, 0.45);
+    z-index: 2;
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+
+  .hero__scroll-label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 3rem;
+    background: linear-gradient(to bottom, rgba(247, 244, 239, 0.4), transparent);
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .hero__stats {
+      flex-direction: column;
+    }
+    .hero__divider {
+      width: 100%;
+      height: 1px;
+    }
+    .hero__vert-text,
+    .hero__scroll { display: none; }
+    .hero__content { padding-block: 7rem 3rem; }
+  }
+</style>
+
+<script>
+  // ─── Parallax on hero bg ───
+  const heroBg = document.getElementById('hero-bg');
+  window.addEventListener('scroll', () => {
+    if (!heroBg) return;
+    const scrolled = window.scrollY;
+    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+  }, { passive: true });
+</script>

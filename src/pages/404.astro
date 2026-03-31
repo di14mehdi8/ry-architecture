@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t } from '../i18n/translations';
+
+const lang = 'fr';
+const tr = t(lang);
+---
+
+<BaseLayout t={tr} lang={lang}>
+  <Header t={tr} lang={lang} />
+  <main class="notfound">
+    <div class="container notfound__inner">
+      <span class="notfound__num heading" aria-hidden="true">404</span>
+      <h1 class="heading heading-xl notfound__title">{tr.notFoundTitle}</h1>
+      <p class="body-lg">{tr.notFoundText}</p>
+      <a href="/" class="btn-primary" style="margin-top: 2rem">
+        <span>{tr.notFoundCta}</span>
+      </a>
+    </div>
+  </main>
+  <Footer t={tr} lang={lang} />
+</BaseLayout>
+
+<style>
+  .notfound {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 8rem;
+  }
+
+  .notfound__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .notfound__num {
+    font-family: var(--font-heading);
+    font-size: clamp(8rem, 20vw, 18rem);
+    font-weight: 300;
+    color: var(--color-sand-light);
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  .notfound__title {
+    margin-top: -2rem;
+  }
+</style>
