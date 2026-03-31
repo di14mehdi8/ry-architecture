@@ -97,6 +97,11 @@ export const translations = {
     aboutBio3: 'Chaque projet est pour lui un dialogue entre le passé et le présent, entre la lumière et l\'ombre, entre la sérénité de la Médina et les aspirations d\'un Maroc en mouvement.',
     aboutQuote: '« L\'architecture la plus noble est celle qui ne se remarque pas — elle se ressent. »',
     aboutQuoteAuthor: '— Yassir Rafi',
+    aboutCredentials: [
+      { label: 'Formation', value: 'École Nationale d\'Architecture, Rabat' },
+      { label: 'Basé à', value: 'Marrakech, Maroc' },
+      { label: 'Expérience', value: '15 ans · 120+ projets' },
+    ],
 
     // Philosophy / AEO FAQ
     philosophyEyebrow: 'Notre philosophie',
@@ -243,6 +248,11 @@ export const translations = {
     aboutBio3: 'Every project is for him a dialogue between past and present, between light and shadow, between the serenity of the Medina and the aspirations of a Morocco in motion.',
     aboutQuote: '"The most noble architecture is the one that goes unnoticed — it is felt."',
     aboutQuoteAuthor: '— Yassir Rafi',
+    aboutCredentials: [
+      { label: 'Education', value: 'École Nationale d\'Architecture, Rabat' },
+      { label: 'Based in', value: 'Marrakech, Morocco' },
+      { label: 'Experience', value: '15 years · 120+ projects' },
+    ],
 
     philosophyEyebrow: 'Our Philosophy',
     philosophyTitle: 'The art of building\nin Morocco',
@@ -385,6 +395,11 @@ export const translations = {
     aboutBio3: 'كل مشروع بالنسبة له حوار بين الماضي والحاضر، بين الضوء والظل، بين هدوء المدينة القديمة وطموحات المغرب في حركة دائمة.',
     aboutQuote: '«إن أنبل هندسة معمارية هي تلك التي لا تُلاحَظ — بل تُحسّ.»',
     aboutQuoteAuthor: '— ياسر رافعي',
+    aboutCredentials: [
+      { label: 'التكوين', value: 'المدرسة الوطنية للهندسة المعمارية، الرباط' },
+      { label: 'مقر العمل', value: 'مراكش، المغرب' },
+      { label: 'الخبرة', value: '15 سنة · 120+ مشروع' },
+    ],
 
     philosophyEyebrow: 'فلسفتنا',
     philosophyTitle: 'فن البناء\nفي المغرب',
@@ -413,7 +428,7 @@ export const translations = {
     ],
 
     contactEyebrow: 'ابدأ مشروعك',
-    contactTitle: 'لنبني\nمعاً',
+    contactTitle: 'لنبني معاً',
     contactSubtitle: 'كل مشروع عظيم يبدأ بمحادثة. شارك رؤيتك — نحن نصغي إليك.',
     contactNameLabel: 'اسمك',
     contactNamePlaceholder: 'أحمد المنصوري',

@@ -176,7 +176,7 @@ const icons: Record<string, string> = {
   .service-card__num {
     position: absolute;
     top: 1.5rem;
-    right: 1.75rem;
+    inset-inline-end: 1.75rem;
     font-family: var(--font-heading);
     font-size: 3.5rem;
     font-weight: 300;
@@ -186,11 +186,6 @@ const icons: Record<string, string> = {
     transition: color 400ms;
     pointer-events: none;
     user-select: none;
-  }
-
-  [dir="rtl"] .service-card__num {
-    right: auto;
-    left: 1.75rem;
   }
 
   .service-card__title {

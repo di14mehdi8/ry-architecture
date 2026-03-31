@@ -196,9 +196,11 @@ const { t } = Astro.props;
     transition: color 200ms;
   }
 
+  /* RTL: reverse grid column order so [num][text][icon] reads right→left */
   [dir="rtl"] .faq-item__q {
-    text-align: right;
     direction: rtl;
+    text-align: right;
+    grid-template-columns: 1.5rem 1fr 2rem;
   }
 
   .faq-item__q:hover {
@@ -251,7 +253,9 @@ const { t } = Astro.props;
   }
 
   [dir="rtl"] .faq-item__a {
-    padding: 0 calc(2rem + 1.25rem) 1.75rem 0;
+    padding: 0 calc(1.5rem + 1.25rem) 1.75rem 0;
+    direction: rtl;
+    text-align: right;
   }
 
   .faq-item__a[hidden] {

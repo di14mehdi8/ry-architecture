@@ -91,6 +91,7 @@ const lp = (l: typeof lang) => getLocalePath(l, '', base);
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    direction: ltr; /* Keep logo/nav/lang on same sides for all languages */
   }
 
   /* ─── Logo ─── */

@@ -61,18 +61,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
         <!-- Credentials -->
         <div class="about__credentials reveal reveal-delay-5">
-          <div class="credential">
-            <span class="credential__label eyebrow">Formation</span>
-            <span class="credential__value">École Nationale d'Architecture, Rabat</span>
-          </div>
-          <div class="credential">
-            <span class="credential__label eyebrow">Basé à</span>
-            <span class="credential__value">Marrakech, Maroc</span>
-          </div>
-          <div class="credential">
-            <span class="credential__label eyebrow">Expérience</span>
-            <span class="credential__value">15 ans · 120+ projets</span>
-          </div>
+          {t.aboutCredentials.map((cred) => (
+            <div class="credential">
+              <span class="credential__label eyebrow">{cred.label}</span>
+              <span class="credential__value">{cred.value}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -277,6 +271,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     gap: 1.5rem;
   }
 
+  /* RTL: flip label/value order so label reads first from right */
+  [dir="rtl"] .credential {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
   .credential__label {
     min-width: 7rem;
     flex-shrink: 0;
@@ -286,6 +286,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .credential__value {
     font-size: 0.875rem;
     color: var(--color-charcoal);
+    unicode-bidi: isolate;
   }
 
   /* ─── Responsive ─── */
