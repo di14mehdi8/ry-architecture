@@ -34,7 +34,7 @@ export const translations = {
     statsClients: 'Clients satisfaits',
     statsProjectsNum: '120+',
     statsYearsNum: '15',
-    statsClientsNum: '98%',
+    statsClientsNum: '100%',
 
     // Services
     servicesEyebrow: 'Notre savoir-faire',
@@ -188,7 +188,7 @@ export const translations = {
     statsClients: 'Satisfied Clients',
     statsProjectsNum: '120+',
     statsYearsNum: '15',
-    statsClientsNum: '98%',
+    statsClientsNum: '100%',
 
     servicesEyebrow: 'Our Expertise',
     servicesTitle: 'Spaces designed\nwith intention',
@@ -335,7 +335,7 @@ export const translations = {
     statsClients: 'عميل راضٍ',
     statsProjectsNum: '+120',
     statsYearsNum: '15',
-    statsClientsNum: '98%',
+    statsClientsNum: '100%',
 
     servicesEyebrow: 'خبرتنا',
     servicesTitle: 'فضاءات مصممة\nبنية وإتقان',
