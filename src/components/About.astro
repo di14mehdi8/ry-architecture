@@ -140,9 +140,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .about__image-caption {
     position: absolute;
     bottom: 1.5rem;
-    left: -1.5rem;
+    left: 0;
     background: var(--color-offwhite);
-    padding: 0.75rem 1.25rem;
+    padding: 0.75rem 1.25rem 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -154,7 +154,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   [dir="rtl"] .about__image-caption {
     left: auto;
-    right: -1.5rem;
+    right: 0;
+    padding: 0.75rem 1.5rem 0.75rem 1.25rem;
   }
 
   .about__image-rule {

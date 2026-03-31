@@ -75,12 +75,16 @@ const lp = (l: typeof lang) => getLocalePath(l, '', base);
     right: 0;
     z-index: 100;
     padding-block: 1.25rem;
-    transition: padding-block 300ms ease, background 300ms ease, box-shadow 300ms ease;
+    background: rgba(28, 26, 24, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: padding-block 300ms ease, background 300ms ease,
+                backdrop-filter 300ms ease, box-shadow 300ms ease;
   }
 
   .header.scrolled {
     padding-block: 0.875rem;
-    background: rgba(247, 244, 239, 0.95);
+    background: rgba(247, 244, 239, 0.96);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 1px 0 rgba(28, 26, 24, 0.08);
@@ -100,8 +104,13 @@ const lp = (l: typeof lang) => getLocalePath(l, '', base);
     align-items: baseline;
     gap: 0.5rem;
     text-decoration: none;
-    color: var(--color-charcoal);
+    color: var(--color-offwhite);
     flex-shrink: 0;
+    transition: color 300ms ease;
+  }
+
+  .header.scrolled .logo {
+    color: var(--color-charcoal);
   }
 
   .logo svg {
@@ -116,8 +125,13 @@ const lp = (l: typeof lang) => getLocalePath(l, '', base);
     font-weight: 300;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--color-stone);
+    color: rgba(247, 244, 239, 0.7);
     margin-top: 2px;
+    transition: color 300ms ease;
+  }
+
+  .header.scrolled .logo__wordmark {
+    color: var(--color-stone);
   }
 
   /* ─── Nav ─── */
@@ -132,11 +146,15 @@ const lp = (l: typeof lang) => getLocalePath(l, '', base);
     font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--color-charcoal);
+    color: rgba(247, 244, 239, 0.9);
     text-decoration: none;
     position: relative;
     padding-bottom: 2px;
-    transition: color 200ms;
+    transition: color 300ms ease;
+  }
+
+  .header.scrolled .nav__link {
+    color: var(--color-charcoal);
   }
 
   .nav__link::after {
@@ -161,14 +179,23 @@ const lp = (l: typeof lang) => getLocalePath(l, '', base);
   }
 
   .nav__link--cta {
-    border: 1px solid var(--color-charcoal-40);
+    border: 1px solid rgba(247, 244, 239, 0.45);
     padding: 0.5rem 1.25rem;
-    transition: background 200ms, color 200ms, border-color 200ms;
+    transition: background 300ms, color 300ms, border-color 300ms;
+  }
+
+  .header.scrolled .nav__link--cta {
+    border-color: var(--color-charcoal-40);
   }
 
   .nav__link--cta::after { display: none; }
 
   .nav__link--cta:hover {
+    background: rgba(247, 244, 239, 0.15);
+    border-color: rgba(247, 244, 239, 0.7);
+  }
+
+  .header.scrolled .nav__link--cta:hover {
     background: var(--color-charcoal);
     color: var(--color-offwhite);
     border-color: var(--color-charcoal);
@@ -186,19 +213,33 @@ const lp = (l: typeof lang) => getLocalePath(l, '', base);
     font-size: 0.625rem;
     font-weight: 500;
     letter-spacing: 0.12em;
-    color: var(--color-stone);
+    color: rgba(247, 244, 239, 0.6);
     text-decoration: none;
-    transition: color 200ms;
+    transition: color 300ms ease;
+  }
+
+  .header.scrolled .lang-link {
+    color: var(--color-stone);
   }
 
   .lang-link:hover,
   .lang-link--active {
+    color: var(--color-offwhite);
+  }
+
+  .header.scrolled .lang-link:hover,
+  .header.scrolled .lang-link--active {
     color: var(--color-charcoal);
   }
 
   .lang-sep {
-    color: var(--color-stone-light);
+    color: rgba(247, 244, 239, 0.3);
     font-size: 0.5rem;
+    transition: color 300ms ease;
+  }
+
+  .header.scrolled .lang-sep {
+    color: var(--color-stone-light);
   }
 
   /* ─── Hamburger ─── */
